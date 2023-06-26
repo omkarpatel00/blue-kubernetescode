@@ -9,7 +9,7 @@ node {
 
     stage('Build image') {
   
-       app = docker.build("raj80dockerid/test")
+       app = docker.build("omkarpatel00/blue-test")
     }
 
     stage('Test image') {
@@ -22,13 +22,13 @@ node {
 
     stage('Push image') {
         
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+        docker.withRegistry('https://registry.hub.docker.com', 'github') {
             app.push("${env.BUILD_NUMBER}")
         }
     }
     
     stage('Trigger ManifestUpdate') {
                 echo "triggering updatemanifestjob"
-                build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+                build job: 'Blue-Update-Deployment', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
         }
 }
