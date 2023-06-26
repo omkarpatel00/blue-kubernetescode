@@ -9,7 +9,10 @@ node {
 
     stage('Build image') {
   
-       app = docker.build("omkarpatel00/blue-test")
+       /* 
+        app = docker.build("omkarpatel00/blue-test")
+        */
+        docker build -t omkarpatel00/blue-test .
     }
 
     stage('Test image') {
